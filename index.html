@@ -1,307 +1,106 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-theme="light">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CUCH - Hola Mundo</title>
-    <link rel="shortcut icon" href="https://i.imgur.com/83sWjE7.jpeg" type="image/x-icon">
+    <link rel="shortcut icon" href="https://i.imgur.com/83sWjE7.jpeg" type="image/x-icon" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Tema claro/oscuro con preferencia del usuario
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+    </script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Arial', sans-serif;
-            height: 100vh;
-            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
-            url('https://i.imgur.com/sLmZqy6.jpeg') center/cover no-repeat;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .container {
-            text-align: center;
-            background: rgba(255, 255, 255, 0.95);
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(46, 139, 87, 0.3);
-            animation: fadeInUp 1.5s ease-out;
-            max-width: 600px;
-            margin: 20px;
-        }
-
         .logo {
-            width: 120px;
-            height: 120px;
-            margin: 0 auto 30px;
-            background: url('https://i.imgur.com/83sWjE7.jpeg') center/contain no-repeat;
-            border-radius: 50%;
-            border: 4px solid #2E8B57;
-            animation: rotateIn 2s ease-out;
-            transition: transform 0.3s ease;
+            background-image: url('https://i.imgur.com/83sWjE7.jpeg');
+            background-size: contain;
+            background-repeat: no-repeat;
         }
 
-        .logo:hover {
-            transform: scale(1.1) rotate(360deg);
-        }
-
-        h1 {
-            color: #2E8B57;
-            font-size: 3.5rem;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-            animation: bounceIn 2s ease-out;
-            font-weight: bold;
-        }
-
-        .subtitle {
-            color: #333;
-            font-size: 1.4rem;
-            margin-bottom: 30px;
-            opacity: 0.8;
-            animation: slideInLeft 1.8s ease-out;
-        }
-
-        .btn-container {
-            margin-top: 20px;
-        }
-
-        .btn {
-            background: linear-gradient(135deg, #2E8B57, #3CB371);
-            color: white;
-            padding: 15px 30px;
-            border: none;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            box-shadow: 0 5px 15px rgba(46, 139, 87, 0.3);
-        }
-
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(46, 139, 87, 0.4);
-            background: linear-gradient(135deg, #3CB371, #2E8B57);
-        }
-
-        .particles {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        .particle {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: rgba(46, 139, 87, 0.6);
-            border-radius: 50%;
-            animation: float 6s infinite ease-in-out;
-        }
-
-        .message {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: #2E8B57;
-            color: white;
-            padding: 15px 25px;
-            border-radius: 10px;
-            transform: translateX(400px);
-            transition: transform 0.5s ease;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            z-index: 1000;
-        }
-
-        .message.show {
-            transform: translateX(0);
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(50px);
-            }
+        @keyframes ripple {
             to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes rotateIn {
-            from {
+                transform: scale(4);
                 opacity: 0;
-                transform: rotate(-180deg) scale(0.5);
-            }
-            to {
-                opacity: 1;
-                transform: rotate(0deg) scale(1);
-            }
-        }
-
-        @keyframes bounceIn {
-            0% {
-                opacity: 0;
-                transform: scale(0.3);
-            }
-            50% {
-                opacity: 1;
-                transform: scale(1.1);
-            }
-            100% {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-100px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0px) rotate(0deg);
-                opacity: 0.3;
-            }
-            25% {
-                transform: translateY(-20px) rotate(90deg);
-                opacity: 0.8;
-            }
-            50% {
-                transform: translateY(-10px) rotate(180deg);
-                opacity: 0.5;
-            }
-            75% {
-                transform: translateY(-30px) rotate(270deg);
-                opacity: 0.9;
-            }
-        }
-
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2.5rem;
-            }
-            
-            .container {
-                padding: 30px 20px;
-                margin: 10px;
-            }
-            
-            .logo {
-                width: 100px;
-                height: 100px;
             }
         }
     </style>
 </head>
-<body>
-    <div class="particles" id="particles"></div>
-    
-    <div class="container">
-        <div class="logo" id="logo"></div>
-        <h1 id="title">¡Hola Mundo!</h1>
-        <p class="subtitle">Bienvenido al sitio web del CUCH</p>
-        <div class="btn-container">
-            <button class="btn" onclick="mostrarMensaje()">Saludar</button>
+
+<body
+    class="min-h-screen flex flex-col justify-center items-center bg-cover bg-center bg-no-repeat bg-fixed transition-colors duration-500 dark:bg-gray-900 dark:text-white"
+    style="background-image: url('https://i.imgur.com/sLmZqy6.jpeg');">
+    <div id="particles" class="absolute inset-0 z-0 pointer-events-none"></div>
+
+    <div
+        class="relative z-10 bg-white dark:bg-gray-800/90 backdrop-blur-md rounded-2xl shadow-2xl border border-green-400/30 max-w-xl mx-4 p-8 text-center">
+        <div id="logo"
+            class="logo w-28 h-28 mx-auto mb-6 rounded-full border-4 border-green-600 transition-transform duration-500 hover:scale-110 hover:rotate-180">
         </div>
+        <h1 id="title" class="text-4xl font-bold text-green-700 dark:text-green-400 mb-4">¡Hola Mundo!</h1>
+        <p class="text-lg opacity-80 mb-6">Bienvenido al sitio web del CUCH</p>
+        <button onclick="mostrarMensaje()"
+            class="px-6 py-3 bg-green-600 text-white rounded-full font-semibold uppercase tracking-wider shadow-md hover:bg-green-700 transition">Saludar</button>
     </div>
 
-    <div class="message" id="message">
-        ¡Hola desde el CUCH! 👋
-    </div>
+    <div id="message"
+        class="fixed top-5 right-5 bg-green-600 text-white py-3 px-5 rounded-lg shadow-lg transform translate-x-full transition-transform duration-500 z-50">
+        ¡Hola desde el CUCH! 👋</div>
 
     <script>
-        // Crear partículas animadas
         function crearParticulas() {
-            const particlesContainer = document.getElementById('particles');
-            const numParticulas = 20;
-
-            for (let i = 0; i < numParticulas; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                
-                // Posición aleatoria
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.top = Math.random() * 100 + '%';
-                
-                // Retraso de animación aleatorio
-                particle.style.animationDelay = Math.random() * 6 + 's';
-                
-                particlesContainer.appendChild(particle);
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 20; i++) {
+                const p = document.createElement('div');
+                p.className = 'absolute w-1 h-1 bg-green-600/60 rounded-full animate-[float_6s_infinite_ease-in-out]';
+                p.style.left = Math.random() * 100 + '%';
+                p.style.top = Math.random() * 100 + '%';
+                p.style.animationDelay = Math.random() * 6 + 's';
+                container.appendChild(p);
             }
         }
 
-        // Mostrar mensaje de saludo
         function mostrarMensaje() {
             const message = document.getElementById('message');
-            message.classList.add('show');
-            
-            // Ocultar después de 3 segundos
-            setTimeout(() => {
-                message.classList.remove('show');
-            }, 3000);
-            
-            // Cambiar el texto del título temporalmente
+            message.classList.remove('translate-x-full');
+            message.classList.add('translate-x-0');
+
             const title = document.getElementById('title');
-            const originalText = title.textContent;
+            const original = title.textContent;
             title.textContent = '¡Saludos del CUCH!';
-            title.style.color = '#FF6B35';
-            
+            title.classList.add('text-orange-500');
+
             setTimeout(() => {
-                title.textContent = originalText;
-                title.style.color = '#2E8B57';
-            }, 2000);
+                message.classList.remove('translate-x-0');
+                message.classList.add('translate-x-full');
+                title.textContent = original;
+                title.classList.remove('text-orange-500');
+            }, 3000);
         }
 
-        // Efecto de hover en el logo
-        document.getElementById('logo').addEventListener('mouseenter', function() {
-            this.style.borderColor = '#FF6B35';
-        });
-
-        document.getElementById('logo').addEventListener('mouseleave', function() {
-            this.style.borderColor = '#2E8B57';
-        });
-
-        // Efecto de escritura en el título
         function efectoEscritura() {
             const titulo = document.getElementById('title');
             const texto = '¡Hola Mundo!';
             titulo.textContent = '';
-            
             let i = 0;
             const escribir = setInterval(() => {
                 titulo.textContent += texto.charAt(i);
                 i++;
-                if (i >= texto.length) {
-                    clearInterval(escribir);
-                }
+                if (i >= texto.length) clearInterval(escribir);
             }, 150);
         }
 
-        // Detectar clic en cualquier parte para crear efecto
-        document.addEventListener('click', function(e) {
-            // Crear efecto de ondas en el clic
+        document.getElementById('logo').addEventListener('mouseenter', function () {
+            this.style.borderColor = '#FF6B35';
+        });
+
+        document.getElementById('logo').addEventListener('mouseleave', function () {
+            this.style.borderColor = '#2E8B57';
+        });
+
+        document.addEventListener('click', function (e) {
             const ripple = document.createElement('div');
             ripple.style.position = 'absolute';
             ripple.style.borderRadius = '50%';
@@ -313,53 +112,16 @@
             ripple.style.width = '10px';
             ripple.style.height = '10px';
             ripple.style.pointerEvents = 'none';
-            
+
             document.body.appendChild(ripple);
-            
-            setTimeout(() => {
-                ripple.remove();
-            }, 600);
+            setTimeout(() => ripple.remove(), 600);
         });
 
-        // CSS para el efecto ripple
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes ripple {
-                to {
-                    transform: scale(4);
-                    opacity: 0;
-                }
-            }
-        `;
-        document.head.appendChild(style);
-
-        // Inicializar cuando carga la página
-        window.addEventListener('load', function() {
+        window.addEventListener('load', () => {
             crearParticulas();
-            
-            // Ejecutar efecto de escritura después de 2 segundos
             setTimeout(efectoEscritura, 2000);
         });
-
-        // Cambiar colores según la hora del día
-        function cambiarTemaSegunHora() {
-            const hora = new Date().getHours();
-            const body = document.body;
-            
-            if (hora >= 6 && hora < 12) {
-                // Mañana - tonos más claros
-                body.style.filter = 'brightness(1.1) contrast(1.05)';
-            } else if (hora >= 12 && hora < 18) {
-                // Tarde - colores normales
-                body.style.filter = 'brightness(1) contrast(1)';
-            } else {
-                // Noche - tonos más oscuros
-                body.style.filter = 'brightness(0.9) contrast(1.1)';
-            }
-        }
-
-        // Aplicar tema según la hora
-        cambiarTemaSegunHora();
     </script>
 </body>
+
 </html>
